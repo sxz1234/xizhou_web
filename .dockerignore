@@ -1,0 +1,7 @@
+node_modules
+dist
+*.exe
+launcher.config.json
+.git
+.github
+*.log

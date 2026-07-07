@@ -1,0 +1,4 @@
+﻿{
+  "tunnelMode": "quick",
+  "cloudflaredPath": "cloudflared"
+}

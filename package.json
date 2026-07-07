@@ -1,0 +1,22 @@
+{
+  "name": "web-tunnel-launcher",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Windows launcher: local static site + Cloudflare Tunnel",
+  "main": "src/launcher.js",
+  "scripts": {
+    "start": "node src/launcher.js",
+    "build": "pkg src/launcher.js --targets node18-win-x64 --output dist/web-tunnel-launcher.exe"
+  },
+  "bin": "src/launcher.js",
+  "pkg": {
+    "scripts": "src/**/*.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "pkg": "^5.8.1"
+  },
+  "dependencies": {
+    "localtunnel": "^2.0.2"
+  }
+}

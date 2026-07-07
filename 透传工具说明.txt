@@ -1,0 +1,51 @@
+网页透传工具 — 使用说明
+========================
+
+功能
+----
+双击运行 exe 后：
+1. 在本机 4173 端口启动当前目录下的静态网站
+2. 通过 Cloudflare Tunnel 映射到公网
+3. 关闭 exe 窗口后，公网访问立即失效
+
+固定公网链接（必做一次配置）
+----------------------------
+临时随机链接无法满足“固定链接”需求。请使用 Cloudflare 命名隧道：
+
+1. 安装 cloudflared
+   https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/
+
+2. 登录并创建隧道（命令行）：
+   cloudflared tunnel login
+   cloudflared tunnel create site-preview
+
+3. 在 Cloudflare 控制台为隧道绑定固定子域名（例如 preview.example.com）
+
+4. 编辑 %USERPROFILE%\.cloudflared\config.yml，示例：
+
+   tunnel: <隧道 UUID>
+   credentials-file: C:\Users\你\.cloudflared\<隧道 UUID>.json
+
+   ingress:
+     - hostname: preview.example.com
+       service: http://127.0.0.1:4173
+     - service: http_status:404
+
+5. 复制 launcher.config.json.example 为 launcher.config.json，与 exe 放在同一目录，填写：
+   - tunnelMode: "named"
+   - tunnelName: 与 cloudflared tunnel create 时名称一致
+   - cloudflaredConfig: config.yml 的完整路径
+
+6. 将 exe 放在个人网站根目录（与 index.html 同级），双击运行。
+
+未配置固定域名时
+----------------
+可将 launcher.config.json 中 tunnelMode 设为 "quick"，会得到临时公网地址（每次可能变化），仅适合测试。
+
+打包 exe
+--------
+在项目目录执行：
+  npm install
+  npm run build
+
+生成文件：dist\网页透传工具.exe
