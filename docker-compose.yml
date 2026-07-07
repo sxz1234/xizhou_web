@@ -7,3 +7,14 @@ services:
     restart: unless-stopped
     ports:
       - "${WEB_PORT:-8080}:8080"
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: xizhou-web-cloudflared
+    restart: unless-stopped
+    network_mode: host
+    env_file:
+      - .env
+    depends_on:
+      - xizhou-web
+    command: tunnel --no-autoupdate run --token ${CF_TUNNEL_TOKEN}

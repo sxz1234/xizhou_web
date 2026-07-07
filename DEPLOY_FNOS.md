@@ -20,6 +20,20 @@ git pull --ff-only
 sudo docker compose up -d --build
 ```
 
+公网访问：
+
+```text
+https://xizhoushen.top
+https://www.xizhoushen.top
+```
+
+Cloudflare Tunnel 使用远端部署目录里的 `.env`：
+
+```bash
+CF_TUNNEL_TOKEN=...
+WEB_PORT=8080
+```
+
 如果需要换端口，在部署目录创建或修改 `.env`：
 
 ```bash
