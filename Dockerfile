@@ -1,11 +1,18 @@
-ARG NGINX_IMAGE=public.ecr.aws/docker/library/nginx:1.27-alpine
+ARG NODE_IMAGE=public.ecr.aws/docker/library/node:20-bookworm-slim
 
-FROM ${NGINX_IMAGE}
+FROM ${NODE_IMAGE}
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY index.html /usr/share/nginx/html/index.html
-COPY css /usr/share/nginx/html/css
-COPY js /usr/share/nginx/html/js
-COPY assets /usr/share/nginx/html/assets
+ENV NODE_ENV=production
+ENV PORT=8080
 
-EXPOSE 80
+WORKDIR /app
+
+COPY index.html ./index.html
+COPY css ./css
+COPY js ./js
+COPY assets ./assets
+COPY static-server.js ./static-server.js
+
+EXPOSE 8080
+
+CMD ["node", "static-server.js"]

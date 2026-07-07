@@ -6,4 +6,4 @@ services:
     container_name: xizhou-web
     restart: unless-stopped
     ports:
-      - "${WEB_PORT:-8080}:80"
+      - "${WEB_PORT:-8080}:8080"
