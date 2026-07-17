@@ -40,7 +40,7 @@ const initNavigation = () => {
 
   if (!nav) return
 
-  window.addEventListener('scroll', () => {
+  const updateScrollState = () => {
     nav.classList.toggle('scrolled', window.scrollY > 50)
     if (backTop) backTop.hidden = window.scrollY < 400
     if (scrollProgress) {
@@ -49,7 +49,10 @@ const initNavigation = () => {
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0
       scrollProgress.style.width = `${progress}%`
     }
-  })
+  }
+
+  window.addEventListener('scroll', updateScrollState, { passive: true })
+  updateScrollState()
 
   backTop?.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -72,23 +75,49 @@ const initNavigation = () => {
     sections.forEach(s => observer.observe(s))
   }
 
+  const closeMenu = () => {
+    linksContainer?.classList.remove('open')
+    toggle?.setAttribute('aria-expanded', 'false')
+    toggle?.setAttribute('aria-label', '打开菜单')
+    document.body.classList.remove('menu-open')
+  }
+
   toggle?.addEventListener('click', () => {
-    linksContainer?.classList.toggle('open')
+    const isOpen = linksContainer?.classList.toggle('open') || false
+    toggle.setAttribute('aria-expanded', String(isOpen))
+    toggle.setAttribute('aria-label', isOpen ? '关闭菜单' : '打开菜单')
+    document.body.classList.toggle('menu-open', isOpen)
   })
 
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
-      linksContainer?.classList.remove('open')
+      closeMenu()
     })
+  })
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closeMenu()
+  })
+
+  document.addEventListener('click', event => {
+    if (!nav.contains(event.target)) closeMenu()
   })
 }
 
 const initScrollReveal = () => {
   const elements = document.querySelectorAll('.reveal')
+  if (!('IntersectionObserver' in window)) {
+    elements.forEach(el => el.classList.add('visible'))
+    return
+  }
+
   const observer = new IntersectionObserver(
     entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible')
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible')
+          observer.unobserve(entry.target)
+        }
       })
     },
     { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
@@ -346,13 +375,15 @@ const initResearchTags = () => {
   if (!tags.length || !panelText) return
 
   tags.forEach(tag => {
+    tag.setAttribute('aria-pressed', String(tag.classList.contains('active')))
     tag.addEventListener('click', () => {
-      const isActive = tag.classList.contains('active')
-      tags.forEach(t => t.classList.remove('active'))
-      if (!isActive) {
-        tag.classList.add('active')
-        panelText.textContent = tag.dataset.desc || ''
-      }
+      tags.forEach(t => {
+        t.classList.remove('active')
+        t.setAttribute('aria-pressed', 'false')
+      })
+      tag.classList.add('active')
+      tag.setAttribute('aria-pressed', 'true')
+      panelText.textContent = tag.dataset.desc || ''
     })
   })
 }
@@ -363,14 +394,20 @@ const initPaperFilter = () => {
   if (!tabs.length) return
 
   tabs.forEach(tab => {
+    tab.setAttribute('aria-selected', String(tab.classList.contains('active')))
     tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'))
+      tabs.forEach(t => {
+        t.classList.remove('active')
+        t.setAttribute('aria-selected', 'false')
+      })
       tab.classList.add('active')
+      tab.setAttribute('aria-selected', 'true')
       const filter = tab.dataset.filter
       papers.forEach(paper => {
         const role = paper.dataset.role
         const show = filter === 'all' || role === filter || (filter === 'first' && role === 'first') || (filter === 'co' && role === 'co')
         paper.classList.toggle('hidden', !show)
+        paper.setAttribute('aria-hidden', String(!show))
       })
     })
   })
@@ -380,6 +417,12 @@ const initPaperToggle = () => {
   document.querySelectorAll('.paper-toggle').forEach(toggle => {
     toggle.addEventListener('click', () => {
       const item = toggle.closest('.paper-item')
+      document.querySelectorAll('.paper-item.open').forEach(openItem => {
+        if (openItem !== item) {
+          openItem.classList.remove('open')
+          openItem.querySelector('.paper-toggle')?.setAttribute('aria-expanded', 'false')
+        }
+      })
       const isOpen = item.classList.toggle('open')
       toggle.setAttribute('aria-expanded', isOpen)
     })
@@ -394,7 +437,19 @@ const initCopyEmail = () => {
 
   btn.addEventListener('click', async () => {
     try {
-      await navigator.clipboard.writeText(email)
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(email)
+      } else {
+        const input = document.createElement('textarea')
+        input.value = email
+        input.setAttribute('readonly', '')
+        input.style.position = 'fixed'
+        input.style.opacity = '0'
+        document.body.appendChild(input)
+        input.select()
+        document.execCommand('copy')
+        input.remove()
+      }
       if (tip) {
         tip.textContent = '已复制到剪贴板 ✓'
         setTimeout(() => { tip.textContent = '' }, 2500)
@@ -504,19 +559,13 @@ const init = () => {
   initKeywordRotator()
   initTimeline()
   initStatCounters()
-  initCardTilt()
-  initHeroChips()
-  initWaveformInteract()
   initAdcDiagram()
-  initKonamiEasterEgg()
-  initMagneticButtons()
   initResearchTags()
   initPaperFilter()
   initPaperToggle()
   initCopyEmail()
   initMessageForm()
   initQuiz()
-  initSnakeGame()
 }
 
 if (document.readyState === 'loading') {

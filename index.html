@@ -62,8 +62,8 @@
   </div>
 
   <nav class="nav" aria-label="主导航">
-    <a href="#home" class="nav-logo"><span class="nav-logo-dot" aria-hidden="true"></span>沈希舟</a>
-    <ul class="nav-links">
+    <a href="#home" class="nav-logo"><span class="nav-logo-dot" aria-hidden="true"></span><span>沈希舟</span><small>XIZHOU SHEN</small></a>
+    <ul class="nav-links" id="primary-navigation">
       <li><a href="#home">首页</a></li>
       <li><a href="#skills">技能</a></li>
       <li><a href="#education">教育</a></li>
@@ -74,7 +74,10 @@
       <li><a href="#interactive">互动</a></li>
       <li><a href="#contact">联系</a></li>
     </ul>
-    <button class="nav-toggle" type="button" aria-label="打开菜单">☰</button>
+    <a class="nav-contact" href="mailto:xizhoushen@foxmail.com" aria-label="发送邮件">联系我</a>
+    <button class="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="primary-navigation">
+      <span></span><span></span>
+    </button>
   </nav>
 
   <main>
@@ -87,108 +90,37 @@
             专注 <span class="keyword-rotator" id="keyword-rotator" aria-live="polite">高速 Pipeline ADC</span>
           </p>
           <p class="hero-bio">上海交通大学在读研究生，目前主要研究<strong>高速 ADC</strong>，正在设计 <strong>12 bit · 2 GS/s Pipeline ADC</strong>。本科就读于南京邮电大学集成电路科学与工程学院（学号 B21022617），在拓扑电路方向以独立第一作者发表多篇论文，并获全国大学生电子设计竞赛、集创赛、嵌入式芯片竞赛等国家级奖项。</p>
-          <div class="hero-chips">
-            <span class="hero-chip">高速数据转换</span>
-            <span class="hero-chip">Pipeline 架构</span>
-            <span class="hero-chip">MDAC · Calibration</span>
-            <span class="hero-chip">拓扑电路 · 本科</span>
-            <span class="hero-chip">NJUPT → SJTU</span>
-          </div>
           <div class="hero-actions">
-            <a href="#papers" class="btn btn-primary">查看论文 ↗</a>
+            <a href="#papers" class="btn btn-primary">查看论文 <span aria-hidden="true">↗</span></a>
             <a href="#research" class="btn btn-outline">研究方向</a>
-            <a href="mailto:xizhoushen@foxmail.com" class="btn btn-ghost">发送邮件</a>
-          </div>
-          <div class="hero-meta-row">
-            <div class="hero-meta-item">
-              <span class="hero-meta-label">当前项目</span>
-              <span class="hero-meta-value">12 bit · 2 GS/s Pipeline ADC</span>
-            </div>
-            <div class="hero-meta-item">
-              <span class="hero-meta-label">本科院校</span>
-              <span class="hero-meta-value">南京邮电大学 · 集电学院</span>
-            </div>
-            <div class="hero-meta-item">
-              <span class="hero-meta-label">研究方向</span>
-              <span class="hero-meta-value">高速 ADC / 拓扑电路</span>
-            </div>
           </div>
         </div>
         <div class="hero-visual reveal visible">
-          <div class="hero-avatar-ring">
-            <div class="hero-avatar-inner">
-              <span class="hero-initials" aria-hidden="true">SXZ</span>
-              <span class="hero-avatar-tag">IC · ADC · TOPO</span>
-            </div>
-          </div>
-          <div class="waveform-bar" title="移动鼠标调节波形 · 点击冻结">
-            <div class="waveform-bars">
-              <span></span><span></span><span></span><span></span><span></span><span></span>
-              <span></span><span></span><span></span><span></span><span></span><span></span>
-            </div>
-            <span class="waveform-label">2 GS/s · 采样波形 · 可交互</span>
-          </div>
-          <div class="hero-stats">
-            <div class="stat-card" data-count="5">
-              <span class="stat-num" data-target="5">0</span>
-              <span class="stat-label">发表论文</span>
-            </div>
-            <div class="stat-card" data-count="3">
-              <span class="stat-num" data-target="3">0</span>
-              <span class="stat-label">独立一作</span>
-            </div>
-            <div class="stat-card" data-count="3">
-              <span class="stat-num" data-target="3">0</span>
-              <span class="stat-label">授权专利</span>
-            </div>
-            <div class="stat-card" data-count="3">
-              <span class="stat-num" data-target="3">0</span>
-              <span class="stat-label">国家级奖项</span>
-            </div>
-            <div class="stat-card stat-card-sci">
-              <span class="stat-num">SCI</span>
-              <span class="stat-label">发表论文均是 SCI</span>
-            </div>
-            <div class="stat-card stat-card-highlight">
-              <span class="stat-num">12b · 2G</span>
-              <span class="stat-label">Pipeline ADC 设计目标</span>
-            </div>
-          </div>
+          <figure class="hero-media">
+            <img src="assets/media/hero-adc-chip.webp" alt="高速 ADC 芯片与采样波形概念图" fetchpriority="high">
+            <figcaption>HIGH-SPEED DATA CONVERTER · PIPELINE ARCHITECTURE</figcaption>
+          </figure>
         </div>
+      </div>
+      <div class="container hero-spec-rail reveal visible" aria-label="当前研究项目参数">
+        <div class="spec-lead"><span class="spec-signal" aria-hidden="true"></span><div><small>当前研究项目</small><strong>12 bit · 2 GS/s Pipeline ADC</strong></div></div>
+        <div><small>架构</small><strong>Pipeline</strong></div>
+        <div><small>分辨率</small><strong>12 bit</strong></div>
+        <div><small>采样率</small><strong>2 GS/s</strong></div>
+        <a href="#research">了解详情 <span aria-hidden="true">↓</span></a>
       </div>
     </section>
 
-    <div class="highlights-strip" aria-label="主要成就速览">
-      <div class="container-wide">
-        <div class="marquee-track">
-          <span class="marquee-item"><span class="marquee-dot"></span><strong>5</strong> 篇期刊论文</span>
-          <span class="marquee-item"><span class="marquee-dot"></span><strong>3</strong> 篇独立/第一作者</span>
-          <span class="marquee-item"><span class="marquee-dot"></span>集创赛 <strong>国赛一等奖</strong> · 富满微杯企业大奖</span>
-          <span class="marquee-item"><span class="marquee-dot"></span>电赛 <strong>全国二等奖</strong> · 江苏赛区一等奖</span>
-          <span class="marquee-item"><span class="marquee-dot"></span>嵌入式芯片竞赛 <strong>全国一等奖</strong></span>
-          <span class="marquee-item"><span class="marquee-dot"></span>Klein 瓶拓扑电路 · <strong>J. Appl. Phys.</strong> 2025</span>
-          <span class="marquee-item"><span class="marquee-dot"></span>12 bit · 2 GS/s <strong>Pipeline ADC</strong> 设计中</span>
-          <span class="marquee-item"><span class="marquee-dot"></span><strong>5</strong> 篇期刊论文</span>
-          <span class="marquee-item"><span class="marquee-dot"></span><strong>3</strong> 篇独立/第一作者</span>
-          <span class="marquee-item"><span class="marquee-dot"></span>集创赛 <strong>国赛一等奖</strong> · 富满微杯企业大奖</span>
-          <span class="marquee-item"><span class="marquee-dot"></span>电赛 <strong>全国二等奖</strong> · 江苏赛区一等奖</span>
-          <span class="marquee-item"><span class="marquee-dot"></span>嵌入式芯片竞赛 <strong>全国一等奖</strong></span>
-          <span class="marquee-item"><span class="marquee-dot"></span>Klein 瓶拓扑电路 · <strong>J. Appl. Phys.</strong> 2025</span>
-          <span class="marquee-item"><span class="marquee-dot"></span>12 bit · 2 GS/s <strong>Pipeline ADC</strong> 设计中</span>
-        </div>
-      </div>
-    </div>
-
     <section id="skills" class="section">
       <div class="container">
-        <div class="section-header section-header-center reveal">
+        <div class="section-header reveal">
           <div class="section-tag">Skills & Tools</div>
           <h2 class="section-title">技能与工具</h2>
           <p class="section-desc">从电路设计到仿真验证，覆盖高速 ADC 研发与本科拓扑电路实验的完整工具链。</p>
         </div>
         <div class="skills-grid reveal">
           <article class="skill-card">
-            <div class="skill-icon" aria-hidden="true">⚡</div>
+            <div class="skill-index" aria-hidden="true">01</div>
             <h3>高速 ADC 设计</h3>
             <div class="skill-tags">
               <span class="skill-tag">Pipeline 架构</span>
@@ -200,7 +132,7 @@
             </div>
           </article>
           <article class="skill-card">
-            <div class="skill-icon" aria-hidden="true">🔬</div>
+            <div class="skill-index" aria-hidden="true">02</div>
             <h3>拓扑电路研究</h3>
             <div class="skill-tags">
               <span class="skill-tag">非厄米拓扑电路</span>
@@ -212,7 +144,7 @@
             </div>
           </article>
           <article class="skill-card">
-            <div class="skill-icon" aria-hidden="true">🛠</div>
+            <div class="skill-index" aria-hidden="true">03</div>
             <h3>EDA 与开发</h3>
             <div class="skill-tags">
               <span class="skill-tag">Cadence Virtuoso</span>
@@ -607,7 +539,7 @@
         <div class="section-header reveal">
           <div class="section-tag">Interactive</div>
           <h2 class="section-title">科研小互动</h2>
-          <p class="section-desc">测一测你对 ADC 与电路的了解、玩一局 PCB 贪吃蛇，或留言给我。试试点击标签芯片、拖动波形条，还有隐藏彩蛋 ⌨️</p>
+          <p class="section-desc">用四道小题快速了解高速 ADC 与拓扑电路，也欢迎就论文、研究或合作直接联系我。</p>
         </div>
         <div class="interactive-grid reveal">
           <div class="quiz-card">
@@ -622,8 +554,15 @@
             <button type="button" class="btn btn-outline btn-sm" id="quiz-next" hidden>下一题</button>
             <p class="quiz-score">得分：<span id="quiz-score">0</span> / <span id="quiz-total">4</span></p>
           </div>
-          <div class="message-card">
-            <h3 class="quiz-title">✉️ 给我留言</h3>
+          <div class="message-card" id="contact">
+            <p class="contact-kicker">ACADEMIC EXCHANGE · COLLABORATION</p>
+            <h3 class="contact-title">有想讨论的研究问题？</h3>
+            <p class="contact-intro">欢迎围绕高速数据转换器、拓扑电路或学术合作与我交流。</p>
+            <div class="inline-email">
+              <a href="mailto:xizhoushen@foxmail.com">xizhoushen@foxmail.com</a>
+              <button type="button" class="copy-email-compact" id="copy-email" aria-label="复制邮箱地址">复制</button>
+              <span class="copy-tip" id="copy-tip" aria-live="polite"></span>
+            </div>
             <form id="message-form" class="message-form">
               <label class="form-label" for="msg-name">您的称呼</label>
               <input type="text" id="msg-name" class="form-input" placeholder="可选" autocomplete="name">
@@ -631,82 +570,6 @@
               <textarea id="msg-content" class="form-input form-textarea" rows="4" placeholder="合作交流、学术讨论…" required></textarea>
               <button type="submit" class="btn btn-primary">通过邮件发送</button>
             </form>
-          </div>
-          <div class="game-card">
-            <div class="game-header">
-              <div>
-                <h3 class="quiz-title">🎮 信号链路 · 贪吃蛇</h3>
-                <p class="game-desc">在 PCB 网格中引导信号采集数据点，链路越长得分越高。方向键 / WASD 控制，空格或 P 暂停。</p>
-              </div>
-              <div class="game-hud">
-                <div class="game-stat">
-                  <span class="game-stat-label">得分</span>
-                  <span class="game-stat-value" id="snake-score">0</span>
-                </div>
-                <div class="game-stat">
-                  <span class="game-stat-label">最高</span>
-                  <span class="game-stat-value" id="snake-best">0</span>
-                </div>
-              </div>
-            </div>
-            <div class="game-body">
-              <div class="game-canvas-wrap">
-                <canvas id="snake-canvas" width="560" height="560"></canvas>
-              </div>
-              <div class="game-side">
-                <p class="game-status" id="snake-status" aria-live="polite">点击开始，让信号跑起来</p>
-                <button type="button" class="btn btn-primary" id="snake-start" aria-label="开始游戏">开始游戏</button>
-                <div class="game-dpad" id="snake-dpad" aria-label="方向控制">
-                  <button type="button" class="dpad-btn dpad-up" data-dir="0,-1" aria-label="向上">▲</button>
-                  <button type="button" class="dpad-btn dpad-left" data-dir="-1,0" aria-label="向左">◀</button>
-                  <button type="button" class="dpad-btn dpad-center" aria-hidden="true" disabled>●</button>
-                  <button type="button" class="dpad-btn dpad-right" data-dir="1,0" aria-label="向右">▶</button>
-                  <button type="button" class="dpad-btn dpad-down" data-dir="0,1" aria-label="向下">▼</button>
-                </div>
-                <ul class="game-tips">
-                  <li>每吃一个数据点 +10 分</li>
-                  <li>速度随得分逐渐提升</li>
-                  <li>撞墙或咬到自己则结束</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section">
-      <div class="container">
-        <div class="section-header reveal">
-          <div class="section-tag">Contact</div>
-          <h2 class="section-title">联系方式</h2>
-        </div>
-        <div class="contact-grid reveal">
-          <div class="contact-card">
-            <span class="contact-icon" aria-hidden="true">📧</span>
-            <h3>电子邮箱</h3>
-            <a href="mailto:xizhoushen@foxmail.com" class="contact-email" id="contact-email">xizhoushen@foxmail.com</a>
-            <button type="button" class="btn btn-outline btn-sm" id="copy-email" aria-label="复制邮箱地址">复制邮箱</button>
-            <p class="copy-tip" id="copy-tip" aria-live="polite"></p>
-          </div>
-          <div class="contact-card">
-            <span class="contact-icon" aria-hidden="true">🏫</span>
-            <h3>学校</h3>
-            <p>上海交通大学 · 上海</p>
-            <div class="contact-tags">
-              <span class="contact-tag">在读研究生</span>
-              <span class="contact-tag">NJUPT 本科</span>
-            </div>
-          </div>
-          <div class="contact-card">
-            <span class="contact-icon" aria-hidden="true">🔬</span>
-            <h3>当前研究</h3>
-            <p>高速 ADC<br>12 bit · 2 GS/s Pipeline</p>
-            <div class="contact-tags">
-              <span class="contact-tag">Pipeline ADC</span>
-              <span class="contact-tag">Calibration</span>
-              <span class="contact-tag">拓扑电路</span>
-            </div>
           </div>
         </div>
       </div>
@@ -725,7 +588,6 @@
 
   <button type="button" class="back-top" id="back-top" aria-label="回到顶部" hidden>↑</button>
 
-  <script src="js/snake-game.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
