@@ -33,10 +33,17 @@ const safeResolve = (requestPath) => {
 
 const serveFile = (res, filePath) => {
   const stat = fs.statSync(filePath)
+  const extension = path.extname(filePath).toLowerCase()
+  const cacheControl = filePath.endsWith('index.html')
+    ? 'no-store'
+    : extension === '.css' || extension === '.js'
+      ? 'no-cache'
+      : 'public, max-age=604800'
+
   res.writeHead(200, {
-    'Content-Type': mimeTypes.get(path.extname(filePath).toLowerCase()) || 'application/octet-stream',
+    'Content-Type': mimeTypes.get(extension) || 'application/octet-stream',
     'Content-Length': stat.size,
-    'Cache-Control': filePath.endsWith('index.html') ? 'no-store' : 'public, max-age=604800',
+    'Cache-Control': cacheControl,
   })
   fs.createReadStream(filePath).pipe(res)
 }
